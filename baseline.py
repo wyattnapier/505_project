@@ -3,14 +3,14 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.naive_bayes import BernoulliNB
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.multiclass import OneVsRestClassifier
 
 # for plotting results
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.metrics import multilabel_confusion_matrix
+# import matplotlib.pyplot as plt
+# import seaborn as sns
+# from sklearn.metrics import multilabel_confusion_matrix
 
 file_name = "./DepressionEmo-main/Dataset/train.json"
 file_path = os.path.join(os.getcwd(), file_name)
@@ -41,7 +41,7 @@ vectorizer = CountVectorizer(max_features=1000, stop_words='english')
 X_train_bow = vectorizer.fit_transform(X_train)
 X_test_bow = vectorizer.transform(X_test)
 
-nb_clf = OneVsRestClassifier(BernoulliNB())
+nb_clf = OneVsRestClassifier(MultinomialNB())
 nb_clf.fit(X_train_bow, y_train)
 
 nb_pred = nb_clf.predict(X_test_bow)
